@@ -29,7 +29,7 @@ export default function SiteHeader() {
       <header className="fixed inset-x-0 top-0 z-50 bg-background/90 backdrop-blur-sm">
         <div className="flex items-center justify-between px-6 py-5 md:px-12 md:py-7">
           <Link to="/" aria-label="Maiac home" className="relative z-50 block w-[120px] md:w-[150px]">
-            <img src="/assets/maiac-logo.png" alt="maiac" className="w-full" />
+            <img src={`${import.meta.env.BASE_URL}assets/maiac-logo.png`} alt="maiac" className="w-full" />
           </Link>
 
           <nav className="hidden items-center gap-10 md:flex">

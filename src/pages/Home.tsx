@@ -40,7 +40,7 @@ export default function Home() {
         <Reveal>
           <div className="overflow-hidden">
             <img
-              src="/assets/lighthouse.png"
+              src={`${import.meta.env.BASE_URL}assets/lighthouse.png`}
               alt="Lighthouse in fog"
               className="aspect-[16/10] w-full object-cover transition-transform duration-[1.4s] ease-out hover:scale-[1.03]"
             />
@@ -90,7 +90,7 @@ export default function Home() {
 
       {/* ————— BEAM BAND ————— */}
       <section className="relative">
-        <img src="/assets/beam.png" alt="Beam of light over a dark sea" className="h-[70vh] w-full object-cover" />
+        <img src={`${import.meta.env.BASE_URL}assets/beam.png`} alt="Beam of light over a dark sea" className="h-[70vh] w-full object-cover" />
         <h2 className="font-display absolute inset-0 flex items-center justify-center px-6 text-center text-[11vw] uppercase leading-none tracking-tight text-background md:text-[8vw]">
           Stories that
           <br />
