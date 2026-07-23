@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 6% 95%;
+    --foreground: 0 0% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+    --primary: 0 0% 5%;
+    --primary-foreground: 40 6% 95%;
+    --secondary: 40 4% 90%;
+    --secondary-foreground: 0 0% 5%;
+    --muted: 40 4% 90%;
+    --muted-foreground: 40 3% 45%;
+    --accent: 40 4% 88%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 4% 84%;
+    --input: 40 4% 84%;
+    --ring: 0 0% 5%;
+    --radius: 0px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'ss01' on, 'cv11' on;
+  }
+  ::selection {
+    background: #0b0b0b;
+    color: #f4f3f1;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .link-underline {
+    @apply relative inline-block;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute left-0 -bottom-[2px] h-px w-full bg-current;
+  }
+  .link-underline-hover {
+    @apply relative inline-block;
+  }
+  .link-underline-hover::after {
+    content: '';
+    @apply absolute left-0 -bottom-[2px] h-px w-full bg-current origin-left scale-x-0 transition-transform duration-300;
+  }
+  .link-underline-hover:hover::after {
+    @apply scale-x-100;
+  }
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+/* Fade-up on scroll */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
