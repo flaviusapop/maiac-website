@@ -80,6 +80,25 @@
 .animate-marquee {
   animation: marquee 22s linear infinite;
 }
+.animate-marquee-slow {
+  animation: marquee 36s linear infinite;
+}
+
+/* Hide horizontal scrollbars on swipe tracks */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-slow {
+    animation: none;
+  }
+}
 
 /* Fade-up on scroll */
 @keyframes fadeUp {

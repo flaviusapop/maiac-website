@@ -82,10 +82,15 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-24 flex flex-col items-start justify-between gap-6 pb-10 md:flex-row md:items-center">
-          <p className="text-sm text-background/70">
-            &copy; 2026 Maiac, Cluj-Napoca
-          </p>
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="mt-20 flex w-full items-center justify-center gap-2 border-y border-background/15 py-6 text-sm text-background/70 transition-colors hover:text-background"
+        >
+          Back to top <ArrowUp size={16} />
+        </button>
+
+        <div className="flex flex-col items-start justify-between gap-6 py-8 md:flex-row md:items-center">
+          <p className="text-sm text-background/70">&copy; 2026 Maiac, Cluj-Napoca</p>
           <div className="flex items-center gap-5 text-background/70">
             <a href="#" aria-label="LinkedIn" className="transition-colors hover:text-background">
               <Linkedin size={20} />
@@ -94,12 +99,6 @@ export default function SiteFooter() {
               <Instagram size={20} />
             </a>
           </div>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 text-sm text-background/70 transition-colors hover:text-background"
-          >
-            Back to top <ArrowUp size={16} />
-          </button>
         </div>
       </div>
     </footer>

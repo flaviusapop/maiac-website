@@ -49,19 +49,21 @@ export default function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-8">
-            <Link
-              to="/contact"
-              className="link-underline hidden text-[15px] tracking-tight md:block"
-            >
-              Work with us
-            </Link>
+            <div className="hidden md:block">
+              <Link to="/contact" className="link-underline text-[15px] tracking-tight">
+                Work with us
+              </Link>
+            </div>
             <button
               onClick={() => setOpen(!open)}
-              className="link-underline relative z-50 flex items-center gap-2 text-[15px] tracking-tight md:hidden"
+              className={`link-underline relative z-50 flex items-center gap-2 text-[15px] tracking-tight md:hidden ${
+                open ? 'text-background' : ''
+              }`}
               aria-label="Toggle menu"
+              aria-expanded={open}
             >
               {open ? <X size={18} /> : <Menu size={18} />}
-              Menu
+              {open ? 'Close' : 'Menu'}
             </button>
           </div>
         </div>
@@ -79,19 +81,40 @@ export default function SiteHeader() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="font-display text-5xl uppercase leading-[1.15] tracking-tight"
-                style={{ transitionDelay: `${i * 40}ms` }}
+                className={`flex items-baseline gap-4 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+                }`}
+                style={{ transitionDelay: open ? `${150 + i * 50}ms` : '0ms' }}
               >
-                {item.label}
+                <span className="w-8 shrink-0 text-xs text-background/50">
+                  ({String(i + 1).padStart(2, '0')})
+                </span>
+                <span className="font-display text-5xl uppercase leading-[1.15] tracking-tight">
+                  {item.label}
+                </span>
               </Link>
             ),
           )}
         </nav>
-        <div className="px-6 pb-10 text-sm opacity-70">
-          <p>Mihai Eminescu 14, Cluj-Napoca</p>
-          <a href="mailto:hello@maiac.agency" className="link-underline">
-            hello@maiac.agency
-          </a>
+        <div
+          className={`flex items-end justify-between px-6 pb-10 text-sm transition-opacity delay-300 duration-500 ${
+            open ? 'opacity-70' : 'opacity-0'
+          }`}
+        >
+          <div>
+            <p>Mihai Eminescu 14, Cluj-Napoca</p>
+            <a href="mailto:hello@maiac.agency" className="link-underline">
+              hello@maiac.agency
+            </a>
+          </div>
+          <div className="flex flex-col items-end gap-1">
+            <a href="#" className="link-underline">
+              LinkedIn
+            </a>
+            <a href="#" className="link-underline">
+              Instagram
+            </a>
+          </div>
         </div>
       </div>
     </>

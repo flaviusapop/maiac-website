@@ -1,11 +1,45 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import { caseStudies, clients, methodSteps, philosophy, testimonials, contact } from '@/data/content';
+import {
+  articles,
+  caseStudies,
+  clients,
+  methodSteps,
+  philosophy,
+  testimonials,
+  contact,
+} from '@/data/content';
 
 export default function Home() {
   const [t, setT] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSlide = (i: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slide = track.children[i] as HTMLElement | undefined;
+    if (slide) track.scrollTo({ left: slide.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+    setT(i);
+  };
+
+  const onTrackScroll = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slides = Array.from(track.children) as HTMLElement[];
+    const pos = track.scrollLeft;
+    let nearest = 0;
+    let best = Infinity;
+    slides.forEach((s, i) => {
+      const d = Math.abs(s.offsetLeft - track.offsetLeft - pos);
+      if (d < best) {
+        best = d;
+        nearest = i;
+      }
+    });
+    if (nearest !== t) setT(nearest);
+  };
 
   return (
     <main>
@@ -46,9 +80,17 @@ export default function Home() {
             />
           </div>
         </Reveal>
-        <p className="mt-10 text-center text-sm uppercase tracking-wide md:text-base">
-          Strategy &bull; Brand &bull; Marketing &bull; Development
-        </p>
+        <div className="mt-10 overflow-hidden" aria-label="Strategy, Brand, Marketing, Development">
+          <div className="animate-marquee-slow flex w-max items-center whitespace-nowrap">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <span key={i} className="text-sm uppercase tracking-wide md:text-base">
+                Strategy <span className="mx-3">&bull;</span> Brand <span className="mx-3">&bull;</span>{' '}
+                Marketing <span className="mx-3">&bull;</span> Development{' '}
+                <span className="mx-3">&bull;</span>{' '}
+              </span>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ————— STATEMENT ————— */}
@@ -101,12 +143,14 @@ export default function Home() {
       {/* ————— TRUSTED BY ————— */}
       <section className="px-6 py-24 md:px-12 md:py-32">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(Trusted by)</p>
-        <div className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-4">
-          {clients.map((c, i) => (
-            <Reveal key={c} delay={i * 80}>
-              <p className="font-display text-3xl tracking-tight md:text-4xl">{c}</p>
-            </Reveal>
-          ))}
+        <div className="mt-10 overflow-hidden">
+          <div className="animate-marquee-slow flex w-max items-center gap-16 whitespace-nowrap md:gap-24">
+            {[...clients, ...clients].map((c, i) => (
+              <p key={`${c}-${i}`} className="font-display text-3xl tracking-tight md:text-4xl">
+                {c}
+              </p>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -157,6 +201,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ————— INSIGHTS ————— */}
+      <section className="border-t border-border px-6 py-24 md:px-12 md:py-32">
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-4">
+            <Reveal>
+              <p className="max-w-xs text-lg leading-snug tracking-tight md:text-xl">
+                Sharp thinking on brand, growth, and marketing for the next era of tech.
+              </p>
+              <div className="mt-10 flex flex-col items-start gap-3 text-sm uppercase tracking-widest">
+                <span className="link-underline">Articles</span>
+                <span className="text-foreground/40">Press</span>
+              </div>
+            </Reveal>
+          </div>
+          <div className="md:col-span-7 md:col-start-6">
+            {articles.map((a, i) => (
+              <Reveal key={a.title} delay={i * 60}>
+                <Link
+                  to="/method"
+                  className="group flex items-center gap-6 border-t border-border py-6 last:border-b"
+                >
+                  <div className="h-16 w-16 shrink-0 bg-secondary transition-colors group-hover:bg-accent" />
+                  <p className="flex-1 text-lg leading-snug tracking-tight md:text-xl">{a.title}</p>
+                  <span className="shrink-0 text-xs uppercase tracking-widest text-foreground/50">
+                    {a.tag}
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ————— PHILOSOPHY ————— */}
       <section className="border-t border-border px-6 py-28 md:px-12 md:py-36">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(Our philosophy)</p>
@@ -188,19 +265,19 @@ export default function Home() {
         <div className="mt-16">
           <div className="flex items-center justify-between">
             <p className="text-sm text-foreground/50">
-              {t + 1} / {testimonials.length}
+              {t + 1} &mdash; {testimonials.length}
             </p>
             <div className="flex gap-3">
               <button
                 aria-label="Previous testimonial"
-                onClick={() => setT((t - 1 + testimonials.length) % testimonials.length)}
+                onClick={() => scrollToSlide((t - 1 + testimonials.length) % testimonials.length)}
                 className="border border-border p-3 transition-colors hover:bg-foreground hover:text-background"
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 aria-label="Next testimonial"
-                onClick={() => setT((t + 1) % testimonials.length)}
+                onClick={() => scrollToSlide((t + 1) % testimonials.length)}
                 className="border border-border p-3 transition-colors hover:bg-foreground hover:text-background"
               >
                 <ChevronRight size={18} />
@@ -208,16 +285,25 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-8 border border-border bg-white p-10 md:p-16">
-            <p className="text-sm uppercase tracking-widest text-foreground/50">
-              {testimonials[t].company}
-            </p>
-            <blockquote className="font-display mt-8 max-w-4xl text-2xl leading-[1.3] tracking-tight md:text-4xl">
-              &ldquo;{testimonials[t].text}&rdquo;
-            </blockquote>
-            <p className="mt-10 text-foreground/70">
-              {testimonials[t].author}, {testimonials[t].role}
-            </p>
+          <div
+            ref={trackRef}
+            onScroll={onTrackScroll}
+            className="no-scrollbar -mx-6 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-6 px-6 md:-mx-12 md:scroll-px-12 md:px-12"
+          >
+            {testimonials.map((item) => (
+              <div
+                key={item.company}
+                className="w-[85%] shrink-0 snap-start border border-border bg-white p-8 md:w-[70%] md:p-16"
+              >
+                <p className="text-sm uppercase tracking-widest text-foreground/50">{item.company}</p>
+                <blockquote className="font-display mt-8 max-w-4xl text-2xl leading-[1.3] tracking-tight md:text-4xl">
+                  &ldquo;{item.text}&rdquo;
+                </blockquote>
+                <p className="mt-10 text-foreground/70">
+                  {item.author}, {item.role}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -259,6 +345,40 @@ export default function Home() {
                 </div>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ————— ABOUT PREVIEW ————— */}
+      <section className="border-t border-border px-6 py-24 md:px-12 md:py-32">
+        <p className="text-sm uppercase tracking-widest text-foreground/60">(About Maiac)</p>
+        <div className="mt-12 grid gap-12 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-5">
+            <Reveal>
+              <div className="relative overflow-hidden bg-foreground">
+                <img
+                  src={`${import.meta.env.BASE_URL}assets/beam.png`}
+                  alt="Light beam over the sea near Cluj-Napoca"
+                  className="aspect-[4/5] w-full object-cover opacity-80 transition-transform duration-[1.4s] ease-out hover:scale-[1.03]"
+                />
+                <p className="absolute bottom-5 left-5 text-sm uppercase tracking-widest text-background">
+                  Maiac
+                  <br />
+                  (Cluj-Napoca)
+                </p>
+              </div>
+            </Reveal>
+          </div>
+          <div className="md:col-span-6 md:col-start-7">
+            <Reveal delay={100}>
+              <p className="font-display text-3xl leading-[1.15] tracking-tight md:text-4xl">
+                An independent consultancy trusted by technology companies across Europe for over a
+                decade.
+              </p>
+              <Link to="/about" className="link-underline mt-10 inline-block text-xl tracking-tight">
+                Learn more about Maiac <ArrowRight className="inline" size={18} />
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>

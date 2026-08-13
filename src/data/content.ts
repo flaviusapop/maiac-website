@@ -188,6 +188,21 @@ export const testimonials = caseStudies.map((c) => ({
 
 export const clients = ['airfocus by Lucid', 'Blugento', 'RebelDot', 'Nooka Space'];
 
+export const articles = [
+  {
+    title: 'Great marketing isn’t more assets — it’s sharper stories',
+    tag: 'Strategy',
+  },
+  {
+    title: 'AI as a force multiplier for marketing teams that care about craft',
+    tag: 'AI',
+  },
+  {
+    title: 'Deliverables are easy. Value is hard.',
+    tag: 'Growth',
+  },
+];
+
 export const contact = {
   email: 'hello@maiac.agency',
   address: 'Mihai Eminescu 14, Cluj-Napoca',
