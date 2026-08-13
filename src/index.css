@@ -100,6 +100,27 @@
   }
 }
 
+/* Masked line rise-up (motto-style hero reveal) */
+@keyframes riseUp {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
+}
+.mask-line {
+  display: block;
+  overflow: hidden;
+}
+.mask-line > * {
+  display: block;
+  transform: translateY(110%);
+  animation: riseUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mask-line > * {
+    transform: none;
+    animation: none;
+  }
+}
+
 /* Fade-up on scroll */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }

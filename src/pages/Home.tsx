@@ -47,10 +47,16 @@ export default function Home() {
       <section className="relative flex min-h-[100svh] flex-col justify-between px-6 pb-10 pt-28 md:px-12 md:pt-36">
         <div>
           <h1 className="font-display uppercase leading-[0.95] tracking-tight">
-            <span className="block text-[13.5vw] md:text-[10.5vw]">A signal of</span>
-            <span className="block text-right text-[13.5vw] md:text-[10.5vw]">direction</span>
-            <span className="block text-[13.5vw] md:text-[10.5vw]">
-              <span className="mr-[2vw] inline-block align-baseline">&amp;</span>clarity
+            <span className="mask-line text-[13.5vw] md:text-[10.5vw]">
+              <span>A signal of</span>
+            </span>
+            <span className="mask-line text-right text-[13.5vw] md:text-[10.5vw]">
+              <span style={{ animationDelay: '120ms' }}>direction</span>
+            </span>
+            <span className="mask-line text-[13.5vw] md:text-[10.5vw]">
+              <span style={{ animationDelay: '240ms' }}>
+                <span className="mr-[2vw] inline-block align-baseline">&amp;</span>clarity
+              </span>
             </span>
           </h1>
         </div>
