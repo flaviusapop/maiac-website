@@ -34,7 +34,10 @@
     @apply border-border;
   }
   html {
-    scroll-behavior: smooth;
+    scroll-padding-block-start: 7rem;
+    scrollbar-gutter: stable;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
@@ -67,8 +70,10 @@
     content: '';
     @apply absolute left-0 -bottom-[2px] h-px w-full bg-current origin-left scale-x-0 transition-transform duration-300;
   }
+  @media (hover: hover) and (pointer: fine) {
   .link-underline-hover:hover::after {
     @apply scale-x-100;
+  }
   }
 }
 
@@ -78,10 +83,10 @@
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 22s linear infinite;
+  animation: none;
 }
 .animate-marquee-slow {
-  animation: marquee 36s linear infinite;
+  animation: none;
 }
 
 /* Hide horizontal scrollbars on swipe tracks */
@@ -111,8 +116,7 @@
 }
 .mask-line > * {
   display: block;
-  transform: translateY(110%);
-  animation: riseUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .mask-line > * {
@@ -126,9 +130,66 @@
   from { opacity: 0; transform: translateY(28px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.reveal {
-  opacity: 0;
+/* Visible by default; Reveal only prepares hidden content when motion is allowed. */
+.reveal { opacity: 1; }
+
+:root {
+  --type-hero: clamp(2.7rem, 0.8rem + 9.5vw, 6.75rem);
+  --type-display: clamp(2.5rem, 1rem + 7vw, 6.25rem);
+  --type-heading: clamp(2.25rem, 1.7rem + 2.5vw, 4.5rem);
+  --type-card: clamp(2.25rem, 1.4rem + 3vw, 4.5rem);
+  --space-section: clamp(4rem, 2rem + 5vw, 9rem);
+  --page-gutter: clamp(1.5rem, 0.8rem + 2vw, 3rem);
 }
-.reveal.is-visible {
-  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+@layer base {
+  *, *::before, *::after { min-inline-size: 0; }
+  a { max-inline-size: 100%; overflow-wrap: anywhere; }
+  :is(h1, h2, h3, h4) { text-wrap: balance; }
+  :is(a, button) { touch-action: manipulation; }
+  button { min-block-size: 44px; min-inline-size: 44px; }
+  :is(a, button):active { opacity: 0.65; }
+  :focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  svg { flex: none; }
+  :is(input, textarea) { font-size: max(1rem, 16px); }
+}
+@layer utilities {
+  .type-hero { font-size: var(--type-hero); }
+  .type-display { font-size: var(--type-display); }
+  .type-heading { font-size: var(--type-heading); }
+  .type-card { font-size: var(--type-card); }
+  .section-space { padding-block: var(--space-section); }
+  .section-end { padding-block-end: var(--space-section); }
+  .page-shell, main > section.px-6, footer > div, .header-inner {
+    padding-inline: max(var(--page-gutter), calc((100% - 90rem) / 2));
+  }
+}
+.social-link { display: inline-flex; align-items: center; justify-content: center; min-inline-size: 44px; min-block-size: 44px; }
+.card-arrow { opacity: 1; }
+.testimonial-track { overscroll-behavior-x: contain; padding-inline: var(--page-gutter); margin-inline: calc(-1 * var(--page-gutter)); scroll-padding-inline: var(--page-gutter); }
+.mobile-menu { overflow-y: auto; overscroll-behavior: contain; padding-block-end: 2rem; }
+.mobile-menu[aria-hidden="true"] { visibility: hidden; }
+.contact-field:user-invalid { border-color: oklch(48% 0.18 25); }
+.field-error { display: none; color: oklch(48% 0.18 25); margin-block-start: 0.75rem; }
+.contact-field:user-invalid + .field-error { display: block; }
+textarea.contact-field { field-sizing: content; min-block-size: 4lh; max-block-size: 12lh; resize: vertical; text-wrap: stable; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .animate-marquee { animation: marquee 22s linear infinite; }
+  .animate-marquee-slow { animation: marquee 36s linear infinite; }
+  .mask-line > * { animation: riseUp 1s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .reveal.is-pending { opacity: 0; }
+  .reveal.is-visible { animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-window { overflow: visible; }
+  .marquee-track { inline-size: 100%; flex-wrap: wrap; white-space: normal; gap: 1.5rem; }
+  .marquee-duplicate { display: none; }
+  .marquee-track .type-display { font-size: var(--type-heading); }
+}
+
+.menu-ease { transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+@media (prefers-reduced-motion: no-preference) {
+  @media (hover: hover) and (pointer: fine) {
+    .animate-marquee:hover, .animate-marquee-slow:hover { animation-play-state: paused; }
+  }
 }

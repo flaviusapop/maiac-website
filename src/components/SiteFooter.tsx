@@ -1,3 +1,4 @@
+import { scrollBehavior } from '@/lib/motion';
 import { Link } from 'react-router';
 import { ArrowRight, ArrowUp, Linkedin, Instagram } from 'lucide-react';
 import { contact } from '@/data/content';
@@ -19,7 +20,7 @@ export default function SiteFooter() {
                 { to: '/contact', label: 'Contact' },
               ].map((l) => (
                 <li key={l.to}>
-                  <Link to={l.to} className="transition-colors hover:text-background">
+                  <Link to={l.to} className="transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background">
                     {l.label}
                   </Link>
                 </li>
@@ -36,7 +37,7 @@ export default function SiteFooter() {
             </p>
             <a
               href={`mailto:${contact.email}`}
-              className="mt-6 inline-block text-[15px] text-background/60 transition-colors hover:text-background"
+              className="mt-6 inline-block text-[15px] text-background/60 transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background"
             >
               {contact.email}
             </a>
@@ -46,12 +47,12 @@ export default function SiteFooter() {
             <p className="mb-6 text-[15px]">Follow</p>
             <ul className="space-y-3 text-[15px] text-background/60">
               <li>
-                <a href="#" className="transition-colors hover:text-background">
+                <a href="#" className="transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background">
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a href="#" className="transition-colors hover:text-background">
+                <a href="#" className="transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background">
                   Instagram
                 </a>
               </li>
@@ -70,9 +71,9 @@ export default function SiteFooter() {
                 type="email"
                 required
                 placeholder="Your email here"
-                className="w-full bg-transparent text-2xl tracking-tight text-background placeholder:text-background/40 focus:outline-none md:text-3xl"
+                className="w-full bg-transparent text-2xl tracking-tight text-background placeholder:text-background/40  md:text-3xl"
               />
-              <button aria-label="Subscribe" className="transition-transform hover:translate-x-1">
+              <button aria-label="Subscribe" className="motion-safe:transition-transform [@media(hover:hover)_and_(pointer:fine)]:motion-safe:hover:translate-x-1">
                 <ArrowRight size={28} />
               </button>
             </form>
@@ -83,8 +84,8 @@ export default function SiteFooter() {
         </div>
 
         <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="mt-20 flex w-full items-center justify-center gap-2 border-y border-background/15 py-6 text-sm text-background/70 transition-colors hover:text-background"
+          onClick={() => window.scrollTo({ top: 0, behavior: scrollBehavior() })}
+          className="mt-20 flex w-full items-center justify-center gap-2 border-y border-background/15 py-6 text-sm text-background/70 transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background"
         >
           Back to top <ArrowUp size={16} />
         </button>
@@ -92,10 +93,10 @@ export default function SiteFooter() {
         <div className="flex flex-col items-start justify-between gap-6 py-8 md:flex-row md:items-center">
           <p className="text-sm text-background/70">&copy; 2026 Maiac, Cluj-Napoca</p>
           <div className="flex items-center gap-5 text-background/70">
-            <a href="#" aria-label="LinkedIn" className="transition-colors hover:text-background">
+            <a href="#" aria-label="LinkedIn" className="social-link transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background">
               <Linkedin size={20} />
             </a>
-            <a href="#" aria-label="Instagram" className="transition-colors hover:text-background">
+            <a href="#" aria-label="Instagram" className="social-link transition-colors [@media(hover:hover)_and_(pointer:fine)]:hover:text-background">
               <Instagram size={20} />
             </a>
           </div>

@@ -1,3 +1,4 @@
+import { scrollBehavior } from '@/lib/motion';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import Reveal from '@/components/Reveal';
@@ -9,15 +10,15 @@ export default function Work() {
   useEffect(() => {
     if (hash) {
       const el = document.querySelector(hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (el) el.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     }
   }, [hash]);
 
   return (
-    <main className="px-6 pt-32 md:px-12 md:pt-44">
-      <header className="pb-20 md:pb-28">
+    <main className="page-shell px-6 pt-32 md:px-12 md:pt-44">
+      <header className="pb-20 md:section-end">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(Case studies)</p>
-        <h1 className="font-display mt-6 text-[13vw] uppercase leading-[0.9] tracking-tight md:text-[9vw]">
+        <h1 className="font-display mt-6 type-display uppercase leading-[0.9] tracking-tight ">
           Selected
           <br />
           work
@@ -34,7 +35,7 @@ export default function Work() {
               <div className="grid gap-12 md:grid-cols-12">
                 <div className="md:col-span-5">
                   <p className="text-sm text-foreground/50">({String(idx + 1).padStart(2, '0')})</p>
-                  <h2 className="font-display mt-4 text-6xl lowercase tracking-tight md:text-7xl">
+                  <h2 className="font-display mt-4 type-heading lowercase tracking-tight ">
                     {c.client}
                   </h2>
                   <p className="mt-4 text-xl text-foreground/60">{c.tagline}</p>

@@ -5,10 +5,10 @@ import { methodSteps, philosophy } from '@/data/content';
 
 export default function Method() {
   return (
-    <main className="px-6 pt-32 md:px-12 md:pt-44">
-      <header className="pb-20 md:pb-28">
+    <main className="page-shell px-6 pt-32 md:px-12 md:pt-44">
+      <header className="pb-20 md:section-end">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(How we work)</p>
-        <h1 className="font-display mt-6 text-[13vw] uppercase leading-[0.9] tracking-tight md:text-[9vw]">
+        <h1 className="font-display mt-6 type-display uppercase leading-[0.9] tracking-tight ">
           Method
         </h1>
         <p className="mt-10 max-w-xl text-lg leading-relaxed text-foreground/70 md:text-xl">
@@ -17,7 +17,7 @@ export default function Method() {
         </p>
       </header>
 
-      <section className="pb-28">
+      <section className="section-end">
         {methodSteps.map((s) => (
           <Reveal key={s.n}>
             <div className="grid gap-6 border-t border-border py-14 md:grid-cols-12 md:py-20">
@@ -37,7 +37,7 @@ export default function Method() {
       <section className="-mx-6 overflow-hidden border-y border-border py-6 md:-mx-12">
         <div className="animate-marquee flex w-max items-center whitespace-nowrap">
           {Array.from({ length: 6 }).map((_, i) => (
-            <span key={i} className="font-display flex items-center text-[12vw] uppercase leading-none tracking-tight md:text-[8vw]">
+            <span key={i} className="font-display flex items-center type-display uppercase leading-none tracking-tight ">
               Clarity
               <span className="mx-[4vw] text-[6vw] md:text-[4vw]">&#10035;</span>
             </span>
@@ -45,7 +45,7 @@ export default function Method() {
         </div>
       </section>
 
-      <section className="py-28 md:py-36">
+      <section className="section-space ">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(Our philosophy)</p>
         <div className="mt-14 grid gap-14 md:grid-cols-3 md:gap-8">
           {philosophy.map((p, i) => (
@@ -62,7 +62,7 @@ export default function Method() {
           <div className="mt-28 text-center">
             <Link
               to="/work"
-              className="font-display inline-block text-5xl lowercase tracking-tight transition-opacity hover:opacity-60 md:text-7xl"
+              className="font-display inline-block type-heading lowercase tracking-tight transition-opacity [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-60 "
             >
               see it in action <ArrowRight className="inline" size={40} />
             </Link>

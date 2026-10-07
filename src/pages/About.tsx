@@ -4,17 +4,17 @@ import { contact, philosophy } from '@/data/content';
 
 export default function About() {
   return (
-    <main className="px-6 pt-32 md:px-12 md:pt-44">
-      <header className="pb-20 md:pb-28">
+    <main className="page-shell px-6 pt-32 md:px-12 md:pt-44">
+      <header className="pb-20 md:section-end">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(About Maiac)</p>
-        <h1 className="font-display mt-6 text-[13vw] uppercase leading-[0.9] tracking-tight md:text-[9vw]">
+        <h1 className="font-display mt-6 type-display uppercase leading-[0.9] tracking-tight ">
           The
           <br />
           lighthouse
         </h1>
       </header>
 
-      <section className="grid gap-10 border-t border-border py-20 md:grid-cols-12 md:py-28">
+      <section className="grid gap-10 border-t border-border section-space md:grid-cols-12 ">
         <div className="md:col-span-4">
           <Reveal>
             <p className="text-lg tracking-tight md:text-xl">What does Maiac mean?</p>
@@ -22,7 +22,7 @@ export default function About() {
         </div>
         <div className="md:col-span-7 md:col-start-6">
           <Reveal>
-            <h2 className="font-display text-4xl leading-[1.08] tracking-tight md:text-6xl">
+            <h2 className="font-display type-heading leading-[1.08] tracking-tight ">
               Maiac means lighthouse: a signal of direction and clarity.
             </h2>
           </Reveal>
@@ -37,7 +37,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="border-t border-border py-20 md:py-28">
+      <section className="border-t border-border section-space ">
         <Reveal>
           <blockquote className="mx-auto max-w-4xl text-center">
             <p className="font-display text-3xl leading-[1.25] tracking-tight md:text-5xl">
@@ -51,7 +51,7 @@ export default function About() {
         </Reveal>
       </section>
 
-      <section className="border-t border-border py-20 md:py-28">
+      <section className="border-t border-border section-space ">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(Our philosophy)</p>
         <div className="mt-14 grid gap-14 md:grid-cols-3 md:gap-8">
           {philosophy.map((p, i) => (
@@ -65,7 +65,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="border-t border-border py-20 md:py-28">
+      <section className="border-t border-border section-space ">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-4">
             <Reveal>
@@ -93,12 +93,12 @@ export default function About() {
         </div>
       </section>
 
-      <section className="border-t border-border py-24 text-center md:py-36">
+      <section className="border-t border-border section-space text-center ">
         <Reveal>
           <p className="text-sm uppercase tracking-widest text-foreground/60">(Come say hi)</p>
           <Link
             to="/contact"
-            className="font-display mt-8 block text-[13vw] lowercase leading-none tracking-tight transition-opacity hover:opacity-60 md:text-[9vw]"
+            className="font-display mt-8 block type-display lowercase leading-none tracking-tight transition-opacity [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-60 "
           >
             let&rsquo;s talk
           </Link>

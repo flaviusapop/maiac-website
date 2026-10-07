@@ -14,19 +14,32 @@ export default function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            el.classList.add('is-visible');
-            obs.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.12 },
-    );
+    const motion = window.matchMedia('(prefers-reduced-motion: no-preference)');
+    if (!motion.matches || !('IntersectionObserver' in window)) return;
+    el.classList.add('is-pending');
+    const show = () => {
+      el.classList.remove('is-pending');
+      el.classList.add('is-visible');
+    };
+    const obs = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        show();
+        obs.disconnect();
+      }
+    }, { threshold: 0 });
+    const onMotionChange = () => {
+      if (!motion.matches) {
+        show();
+        obs.disconnect();
+      }
+    };
+    motion.addEventListener('change', onMotionChange);
     obs.observe(el);
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      motion.removeEventListener('change', onMotionChange);
+      el.classList.remove('is-pending');
+    };
   }, []);
 
   return (

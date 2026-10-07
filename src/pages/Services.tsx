@@ -5,10 +5,10 @@ import { services } from '@/data/content';
 
 export default function Services() {
   return (
-    <main className="px-6 pt-32 md:px-12 md:pt-44">
-      <header className="pb-20 md:pb-28">
+    <main className="page-shell px-6 pt-32 md:px-12 md:pt-44">
+      <header className="pb-20 md:section-end">
         <p className="text-sm uppercase tracking-widest text-foreground/60">(What we do)</p>
-        <h1 className="font-display mt-6 text-[13vw] uppercase leading-[0.9] tracking-tight md:text-[9vw]">
+        <h1 className="font-display mt-6 type-display uppercase leading-[0.9] tracking-tight ">
           Services
         </h1>
         <p className="mt-10 max-w-xl text-lg leading-relaxed text-foreground/70 md:text-xl">
@@ -47,7 +47,7 @@ export default function Services() {
             <p className="text-sm uppercase tracking-widest text-foreground/60">(Next step)</p>
             <Link
               to="/contact"
-              className="font-display mt-6 inline-block text-5xl lowercase tracking-tight transition-opacity hover:opacity-60 md:text-7xl"
+              className="font-display mt-6 inline-block type-heading lowercase tracking-tight transition-opacity [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-60 "
             >
               work with us <ArrowRight className="inline" size={40} />
             </Link>
